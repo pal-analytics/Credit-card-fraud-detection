@@ -1,72 +1,79 @@
-# Credit-card-fraud-detection
-I have analyzed Credit card detection using, Python, ML models, SQL and Power bi
-This project analyzes credit card transactions to identify fraud patterns using **SQL**, **Python (Pandas + ML)**, and **Power BI**.  
-It covers the full workflow: data cleaning, exploratory analysis, model building, and dashboard visualization for insights.
+# Credit Card Fraud Detection using Machine Learning
 
----
+## Business Problem
+Credit card fraud causes significant financial losses and impacts customer trust.
+The objective of this project is to detect fraudulent transactions with high recall, as missing a fraud transaction is more costly than incorrectly flagging a genuine one.
 
-> Project Overview
+This is a highly imbalanced classification problem, where fraud cases represent a very small percentage of total transactions. Therefore, accuracy alone is not a reliable metric.
 
-Credit card fraud is a major challenge for banks and fintech companies.
-This project demonstrates a real-world workflow:
+## Dataset Overview
+- Total transactions: 284,807
+- Fraudulent transactions: 492 (~0.17%)
+- Features:
+- V1–V28: anonymized transaction features
+- Time: time elapsed since first transaction
+- Amount: transaction amount
+- Class: target variable (0 = Legit, 1 = Fraud)
 
-- Data Extraction & EDA (SQL + Python)
-- Handling class imbalance using SMOTE
-- Building two ML models (Logistic Regression & Random Forest)
-- Evaluating performance using confusion matrix & accuracy/recall
-- Visualizing insights in Power BI
+## Approach & Methodology
 
----
+1. Data loading and validation
+2. Exploratory Data Analysis (EDA)
+3. Feature engineering:
+  - Hour of transaction
+  - High-value transaction flag
+  - Custom spend behavior feature
+4. Train–test split with stratification
+5. Handling class imbalance:
+  - SMOTE for Logistic Regression
+  - Class weighting for Random Forest
+6. Model training:
+  - Logistic Regression
+  - Random Forest
+7. Model evaluation using:
+  - Precision
+  - Recall
+  - F1-score
+  - ROC-AUC
+8. Hyperparameter tuning using GridSearchCV
 
-> Dataset Information
+## Model Performance Summary
+Model	                     Precision (Fraud)	Recall (Fraud)	ROC-AUC
+Logistic Regression (SMOTE)	  Low	            High (0.90)	     0.97
+Random Forest (Balanced)	  High (0.82)	    High (0.83)	     0.98
+Recall was prioritized to minimize missed fraud cases, while Random Forest provided a strong balance between recall and precision
 
-The dataset contains anonymized transactions with PCA-transformed features. Key details:
+## Model Evaluation & Insights
 
-Time – Seconds elapsed between each transaction
-V1 to V28 – PCA-transformed anonymized features
-Amount – Transaction value
-Class –
-0 = Non-fraud
-1 = Fraud
-Total Rows: 284,807
-Fraud Rows: 492
+- Logistic Regression achieved very high recall, making it suitable when detecting maximum fraud is the priority
+- Random Forest produced fewer false positives while maintaining strong recall
+- ROC-AUC scores confirmed strong discrimination between fraud and non-fraud transactions
+- Feature importance analysis improved interpretability and business understanding
 
----
+## Tools & Techniques
 
-> Tools & Techniques
+- Python
+- Pandas, NumPy
+- Scikit-learn
+- Imbalanced-learn (SMOTE)
+- Matplotlib, Seaborn
+  
+## Business Impact & Conclusion
 
-SQL (Oracle SQL)
--Used for data extraction, cleaning, and exploratory data analysis
--Executed aggregate functions, grouping, filtering, and time-based analysis
--Performed fraud vs non-fraud segmentation and transaction pattern exploration
+- Fraud detection requires business-driven evaluation, not just accuracy
+- Logistic Regression is effective when recall is the top priority
+- Tuned Random Forest is recommended for deployment due to stable and balanced performance
+- This approach can be extended to real-time fraud monitoring systems
 
-Python (Pandas, NumPy, Scikit-Learn)
+ ## Future Enhancements
 
--Data loading and preprocessing
--Exploratory data analysis and imbalance handling (SMOTE)
--Built Logistic Regression & Random Forest models
--Evaluated models using accuracy, recall, and confusion matrix
--Exported processed dataset to CSV for Power BI
-
-Power BI
-
--Created dashboard for fraud insights and model interpretation
--Built KPIs, bar charts, confusion matrix, and amount distributions
--Designed clean one-page layout with dark theme
-
-
-> Repository Contents
-	
-- Credit Card Fraud Analysis.pbix – Full dashboard download
-- Screenshot – Visual preview
-- Credit_card_analysis.ipynb 
-- SQL.docx 
-- README.md – Project summary
-
-> Data Source
+- Implement cost-sensitive learning
+- Try XGBoost / LightGBM models
+- Deploy model as an API for real-time fraud scoring
+  
+## Data Source
 - Credit Card Fraud Detection dataset is taken from Kaggle
-
-> About Me
+## About Me
  Pallavi Mali – Data Analyst skilled in Power BI, SQL, Python, Stats, ML DAX, Excel.
 - LinkedIn: linkedin.com/in/pallavi-mali-4b8888272
 - GitHub: github.com/pal-analytics
